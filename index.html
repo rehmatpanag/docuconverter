@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuConvert Pro - Convert anything. Effortlessly.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="gradient-title" id="gradientTitle">DocuConvert Pro</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="support">Support</a>
+                <div class="nav-auth" id="navAuth">
+                    <button class="nav-button" id="loginBtn">Login</button>
+                    <button class="nav-button nav-button--primary" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="nav-user hidden" id="navUser">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="" alt="User" id="userAvatarImg">
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-content">
+                            <a href="#" data-page="dashboard">Dashboard</a>
+                            <a href="#" data-page="profile">Profile</a>
+                            <hr>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox" aria-label="Toggle dark mode">
+                <label for="themeToggle" class="theme-toggle-label">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </label>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" data-page="home">Home</a>
+            <a href="#" data-page="support">Support</a>
+            <a href="#" id="mobileLoginBtn">Login</a>
+            <a href="#" id="mobileSignupBtn">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page active" id="homePage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title gradient-title" id="heroTitle">Convert anything.<br>Effortlessly.</h1>
+                <p class="hero-subtitle">Transform your files with intelligent format detection and batch conversion</p>
+                <div class="hero-cta">
+                    <button class="cta-button" id="getStartedBtn">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Conversion Card - Initially Hidden -->
+            <section class="converter-section hidden" id="converterSection">
+                <div class="glass-card conversion-card">
+                    <div class="card-header">
+                        <h2>Smart Document Converter</h2>
+                        <p>Drag and drop multiple files or click to browse for batch conversion</p>
+                    </div>
+
+                    <!-- Upload Zone -->
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-content">
+                            <div class="upload-icon">📁</div>
+                            <h3>Drop multiple files here or click to browse</h3>
+                            <p>Supports 50+ formats • Batch conversion • Up to 100MB per file</p>
+                            <input type="file" id="fileInput" accept="*/*" multiple>
+                        </div>
+                    </div>
+
+                    <!-- Batch File Container -->
+                    <div class="batch-container" id="batchContainer" style="display: none;">
+                        <h4>Files Ready for Conversion</h4>
+                        <div class="batch-files-list" id="batchFilesList">
+                            <!-- Batch files will be inserted here -->
+                        </div>
+                        <div class="batch-actions">
+                            <button class="btn--primary" id="processBatchBtn">Convert All Files</button>
+                            <button class="btn--outline" id="clearBatchBtn">Clear All</button>
+                        </div>
+                    </div>
+
+                    <!-- Single File Preview Section (for backward compatibility) -->
+                    <div class="file-preview-section" id="filePreviewSection" style="display: none;">
+                        <h4>File Preview</h4>
+                        <div class="preview-container">
+                            <div class="file-preview-card">
+                                <div class="preview-image" id="previewImage">
+                                    <div class="file-icon" id="fileIcon">📄</div>
+                                </div>
+                                <div class="file-info" id="fileInfo">
+                                    <h5 id="fileName">filename.ext</h5>
+                                    <p id="fileDetails">0 KB • Unknown</p>
+                                    <span class="file-category" id="fileCategory">Document</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format Selection Section -->
+                    <div class="format-selection-section" id="formatSelectionSection" style="display: none;">
+                        <h4>Convert to:</h4>
+                        <div class="format-categories" id="formatCategories"></div>
+                        
+                        <!-- Selected Format Preview -->
+                        <div class="selected-format-preview" id="selectedFormatPreview" style="display: none;">
+                            <div class="format-preview-card">
+                                <div class="format-icon" id="selectedFormatIcon">📄</div>
+                                <div class="format-info">
+                                    <h5 id="selectedFormatName">PDF</h5>
+                                    <p id="selectedFormatDescription">Perfect for documents that need to maintain formatting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Convert Button -->
+                    <div class="convert-section" id="convertSection" style="display: none;">
+                        <button class="convert-button" id="convertBtn" disabled>
+                            <span>Convert File</span>
+                            <div class="convert-icon">⚡</div>
+                        </button>
+                    </div>
+
+                    <!-- Progress -->
+                    <div class="conversion-progress" id="conversionProgress" style="display: none;">
+                        <h4>Converting...</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">Preparing files...</p>
+                    </div>
+
+                    <!-- Download -->
+                    <div class="download-section" id="downloadSection" style="display: none;">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20,6 9,17 4,12"></polyline>
+                            </svg>
+                        </div>
+                        <h4>Conversion Complete!</h4>
+                        <div class="download-card">
+                            <div class="converted-file-preview" id="convertedFilePreview">
+                                <div class="converted-icon" id="convertedIcon">📄</div>
+                                <div class="converted-info">
+                                    <h5 id="convertedFileName">converted-file.pdf</h5>
+                                    <p>Ready for download</p>
+                                </div>
+                            </div>
+                            <button class="download-button" id="downloadBtn">
+                                Download File
+                            </button>
+                        </div>
+                        <button class="secondary-button" id="newConversionBtn">
+                            Convert Another File
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <div class="section-header">
+                    <h2>Powerful. Simple. Secure.</h2>
+                    <p>Everything you need for professional document conversion</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3>Batch Processing</h3>
+                        <p>Convert multiple files at once with individual progress tracking</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </div>
+                        <h3>Instant Preview</h3>
+                        <p>See your files before and after conversion with real-time previews</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <circle cx="12" cy="16" r="1"></circle>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <h3>Secure & Private</h3>
+                        <p>Files are processed locally and automatically deleted after 24 hours</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">2.8M+</div>
+                        <div class="stat-label">Files Converted</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Supported Formats</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">&lt;30s</div>
+                        <div class="stat-label">Average Time</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div class="page" id="dashboardPage">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <p>Manage your conversions and account settings</p>
+        </div>
+        <div class="dashboard-content">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Total Conversions</h3>
+                    <div class="stat-value" id="totalConversions">24</div>
+                </div>
+                <div class="stat-card">
+                    <h3>This Month</h3>
+                    <div class="stat-value" id="monthlyConversions">8</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Success Rate</h3>
+                    <div class="stat-value" id="successRate">98%</div>
+                </div>
+            </div>
+            <div class="conversion-history">
+                <h2>Conversion History</h2>
+                <div class="history-table">
+                    <div class="table-header">
+                        <span>Date</span>
+                        <span>Original File</span>
+                        <span>Format</span>
+                        <span>Status</span>
+                        <span>Actions</span>
+                    </div>
+                    <div class="table-body" id="historyTableBody">
+                        <!-- History items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Page -->
+    <div class="page" id="supportPage">
+        <div class="page-header">
+            <h1>Support</h1>
+            <p>Get help and report issues</p>
+        </div>
+        <div class="support-content">
+            <div class="support-section">
+                <h2>Report an Issue</h2>
+                <form class="issue-form" id="issueForm">
+                    <div class="form-group">
+                        <label for="issueCategory">Category</label>
+                        <select id="issueCategory" class="form-control">
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueSubject">Subject</label>
+                        <input type="text" id="issueSubject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issuePriority">Priority</label>
+                        <select id="issuePriority" class="form-control">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueDescription">Description</label>
+                        <textarea id="issueDescription" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn--primary">Submit Issue</button>
+                </form>
+            </div>
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-list" id="faqList">
+                    <!-- FAQ items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIXED Login Modal with Perfect Centering -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-content" id="loginModalContent">
+                <div class="modal-header">
+                    <h2>Welcome Back</h2>
+                    <button class="modal-close" id="loginModalClose">&times;</button>
+                </div>
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn--primary btn--full-width">Sign In</button>
+                    <div class="auth-divider">or</div>
+                    <div class="social-auth">
+                        <button type="button" class="social-btn google-btn">
+                            <span>Continue with Google</span>
+                        </button>
+                        <button type="button" class="social-btn apple-btn">
+                            <span>Continue with Apple</span>
+                        </button>
+                    </div>
+                    <p class="auth-switch">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIXED Signup Modal with Perfect Centering -->
+    <div class="modal-overlay hidden" id="signupModalOverlay">
+        <div class="modal-container">
+            <div class="modal-content" id="signupModalContent">
+                <div class="modal-header">
+                    <h2 id="signupModalTitle">Create Account</h2>
+                    <button class="modal-close" id="signupModalClose">&times;</button>
+                </div>
+                
+                <!-- Step 1: Basic Information -->
+                <form class="auth-form" id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" class="form-control" required>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-meter">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText">Enter a password</div>
+                        </div>
+                        <div class="password-requirements" id="passwordRequirements">
+                            <div class="requirement" id="lengthReq">
+                                <span class="requirement-icon">✗</span>
+                                <span>At least 8 characters</span>
+                            </div>
+                            <div class="requirement" id="uppercaseReq">
+                                <span class="requirement-icon">✗</span>
+                                <span>At least 1 uppercase letter</span>
+                            </div>
+                            <div class="requirement" id="numberReq">
+                                <span class="requirement-icon">✗</span>
+                                <span>At least 1 number</span>
+                            </div>
+                            <div class="requirement" id="symbolReq">
+                                <span class="requirement-icon">✗</span>
+                                <span>At least 1 symbol (!@#$%^&*)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" required>
+                        <div class="password-match" id="passwordMatch"></div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span>I agree to the <a href="#" target="_blank">Terms of Service</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn--primary btn--full-width" id="signupSubmitBtn" disabled>Create Account</button>
+                    <div class="auth-divider">or</div>
+                    <div class="social-auth">
+                        <button type="button" class="social-btn google-btn">
+                            <span>Continue with Google</span>
+                        </button>
+                        <button type="button" class="social-btn apple-btn">
+                            <span>Continue with Apple</span>
+                        </button>
+                    </div>
+                    <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Sign in</a></p>
+                </form>
+
+                <!-- Step 2: Email Verification -->
+                <div class="verification-form hidden" id="verificationForm">
+                    <div class="verification-content">
+                        <div class="verification-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Verify Your Email</h3>
+                        <p>We've sent a 6-digit verification code to <span id="verificationEmail"></span></p>
+                        
+                        <div class="otp-input-group">
+                            <input type="text" class="otp-input" maxlength="1" id="otp1">
+                            <input type="text" class="otp-input" maxlength="1" id="otp2">
+                            <input type="text" class="otp-input" maxlength="1" id="otp3">
+                            <input type="text" class="otp-input" maxlength="1" id="otp4">
+                            <input type="text" class="otp-input" maxlength="1" id="otp5">
+                            <input type="text" class="otp-input" maxlength="1" id="otp6">
+                        </div>
+                        
+                        <div class="otp-timer" id="otpTimer">
+                            Code expires in <span id="timerDisplay">05:00</span>
+                        </div>
+                        
+                        <button type="button" class="btn--primary btn--full-width" id="verifyOtpBtn">Verify Code</button>
+                        
+                        <div class="resend-section">
+                            <p>Didn't receive the code?</p>
+                            <button type="button" class="btn--outline" id="resendOtpBtn">Resend Code</button>
+                        </div>
+                        
+                        <button type="button" class="btn--outline" id="backToSignupBtn">Back to Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 DocuConvert Pro. Designed with inspiration from the world's most beautiful interfaces.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
