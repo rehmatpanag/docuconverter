@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +10,67 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <span class="gradient-title" id="gradientTitle">DocuConvert Pro</span>
-            </div>
+            <div class="nav-logo">DocuConvert Pro</div>
             <div class="nav-links">
                 <a href="#" class="nav-link" data-page="home">Home</a>
                 <a href="#" class="nav-link" data-page="support">Support</a>
                 <div class="nav-auth" id="navAuth">
-                    <button class="nav-button" id="loginBtn">Login</button>
-                    <button class="nav-button nav-button--primary" id="signupBtn">Sign Up</button>
+                    <div class="auth-dropdown-container">
+                        <button class="nav-button" id="loginBtn">Login</button>
+                        <div class="auth-dropdown hidden" id="loginDropdown">
+                            <div class="dropdown-header">
+                                <h3>Welcome Back</h3>
+                                <p>Sign in to your account</p>
+                            </div>
+                            <form class="auth-form" id="loginForm">
+                                <div class="form-group">
+                                    <input type="email" id="loginEmail" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+                                </div>
+                                <div class="form-options">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="rememberMe">
+                                        <span>Remember me</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+                                <p class="auth-switch">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="auth-dropdown-container">
+                        <button class="nav-button nav-button--primary" id="signupBtn">Sign Up</button>
+                        <div class="auth-dropdown hidden" id="signupDropdown">
+                            <div class="dropdown-header">
+                                <h3>Create Account</h3>
+                                <p>Join DocuConvert Pro today</p>
+                            </div>
+                            <form class="auth-form" id="signupForm">
+                                <div class="form-group">
+                                    <input type="text" id="signupName" class="form-control" placeholder="Full Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="signupEmail" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="signupPassword" class="form-control" placeholder="Password (8+ chars, 1 capital, 1 number, 1 symbol)" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                                </div>
+                                <div class="form-options">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="agreeTerms" required>
+                                        <span>I agree to the <a href="#" target="_blank">Terms of Service</a></span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn--primary btn--full-width">Create Account</button>
+                                <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Sign in</a></p>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="nav-user hidden" id="navUser">
                     <div class="user-avatar" id="userAvatar">
@@ -34,9 +86,8 @@
                     </div>
                 </div>
             </div>
-            <div class="nav-toggle">
-                <input type="checkbox" id="themeToggle" class="theme-checkbox" aria-label="Toggle dark mode">
-                <label for="themeToggle" class="theme-toggle-label">
+            <div class="nav-toggle" id="themeToggle">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark mode">
                     <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -51,7 +102,7 @@
                     <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                </label>
+                </button>
             </div>
             <div class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
@@ -70,10 +121,10 @@
     <!-- Home Page -->
     <div class="page active" id="homePage">
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" id="heroSection">
             <div class="hero-content">
-                <h1 class="hero-title gradient-title" id="heroTitle">Convert anything.<br>Effortlessly.</h1>
-                <p class="hero-subtitle">Transform your files with intelligent format detection and batch conversion</p>
+                <h1 class="hero-title" id="heroTitle">Convert anything.<br>Effortlessly.</h1>
+                <p class="hero-subtitle">Transform your files with intelligent format detection and instant preview</p>
                 <div class="hero-cta">
                     <button class="cta-button" id="getStartedBtn">
                         Get Started
@@ -84,37 +135,32 @@
 
         <!-- Main Content -->
         <main class="main">
-            <!-- Conversion Card - Initially Hidden -->
+            <!-- Conversion Card - Initially Hidden, Will Replace Hero -->
             <section class="converter-section hidden" id="converterSection">
                 <div class="glass-card conversion-card">
                     <div class="card-header">
                         <h2>Smart Document Converter</h2>
-                        <p>Drag and drop multiple files or click to browse for batch conversion</p>
+                        <p>Drag and drop your files or click to browse</p>
                     </div>
 
                     <!-- Upload Zone -->
                     <div class="upload-zone" id="uploadZone">
                         <div class="upload-content">
-                            <div class="upload-icon">📁</div>
-                            <h3>Drop multiple files here or click to browse</h3>
-                            <p>Supports 50+ formats • Batch conversion • Up to 100MB per file</p>
+                            <div class="upload-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7,10 12,15 17,10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                            </div>
+                            <h3>Drop your file here</h3>
+                            <p>or click to browse</p>
+                            <span class="supported-formats">Support for 50+ file formats</span>
                             <input type="file" id="fileInput" accept="*/*" multiple>
                         </div>
                     </div>
 
-                    <!-- Batch File Container -->
-                    <div class="batch-container" id="batchContainer" style="display: none;">
-                        <h4>Files Ready for Conversion</h4>
-                        <div class="batch-files-list" id="batchFilesList">
-                            <!-- Batch files will be inserted here -->
-                        </div>
-                        <div class="batch-actions">
-                            <button class="btn--primary" id="processBatchBtn">Convert All Files</button>
-                            <button class="btn--outline" id="clearBatchBtn">Clear All</button>
-                        </div>
-                    </div>
-
-                    <!-- Single File Preview Section (for backward compatibility) -->
+                    <!-- File Preview Section -->
                     <div class="file-preview-section" id="filePreviewSection" style="display: none;">
                         <h4>File Preview</h4>
                         <div class="preview-container">
@@ -205,8 +251,8 @@
                                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3>Batch Processing</h3>
-                        <p>Convert multiple files at once with individual progress tracking</p>
+                        <h3>Smart Detection</h3>
+                        <p>Automatically detects file type and shows relevant conversion formats</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -329,163 +375,13 @@
                         <label for="issueDescription">Description</label>
                         <textarea id="issueDescription" class="form-control" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn--primary">Submit Issue</button>
+                    <button type="submit" class="btn btn--primary">Submit Issue</button>
                 </form>
             </div>
             <div class="faq-section">
                 <h2>Frequently Asked Questions</h2>
                 <div class="faq-list" id="faqList">
                     <!-- FAQ items will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FIXED Login Modal with Perfect Centering -->
-    <div class="modal-overlay hidden" id="modalOverlay">
-        <div class="modal-container">
-            <div class="modal-content" id="loginModalContent">
-                <div class="modal-header">
-                    <h2>Welcome Back</h2>
-                    <button class="modal-close" id="loginModalClose">&times;</button>
-                </div>
-                <form class="auth-form" id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" class="form-control" required>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="rememberMe">
-                            <span>Remember me</span>
-                        </label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="btn--primary btn--full-width">Sign In</button>
-                    <div class="auth-divider">or</div>
-                    <div class="social-auth">
-                        <button type="button" class="social-btn google-btn">
-                            <span>Continue with Google</span>
-                        </button>
-                        <button type="button" class="social-btn apple-btn">
-                            <span>Continue with Apple</span>
-                        </button>
-                    </div>
-                    <p class="auth-switch">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- FIXED Signup Modal with Perfect Centering -->
-    <div class="modal-overlay hidden" id="signupModalOverlay">
-        <div class="modal-container">
-            <div class="modal-content" id="signupModalContent">
-                <div class="modal-header">
-                    <h2 id="signupModalTitle">Create Account</h2>
-                    <button class="modal-close" id="signupModalClose">&times;</button>
-                </div>
-                
-                <!-- Step 1: Basic Information -->
-                <form class="auth-form" id="signupForm">
-                    <div class="form-group">
-                        <label for="signupName">Full Name</label>
-                        <input type="text" id="signupName" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupEmail">Email</label>
-                        <input type="email" id="signupEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" class="form-control" required>
-                        <div class="password-strength" id="passwordStrength">
-                            <div class="strength-meter">
-                                <div class="strength-fill" id="strengthFill"></div>
-                            </div>
-                            <div class="strength-text" id="strengthText">Enter a password</div>
-                        </div>
-                        <div class="password-requirements" id="passwordRequirements">
-                            <div class="requirement" id="lengthReq">
-                                <span class="requirement-icon">✗</span>
-                                <span>At least 8 characters</span>
-                            </div>
-                            <div class="requirement" id="uppercaseReq">
-                                <span class="requirement-icon">✗</span>
-                                <span>At least 1 uppercase letter</span>
-                            </div>
-                            <div class="requirement" id="numberReq">
-                                <span class="requirement-icon">✗</span>
-                                <span>At least 1 number</span>
-                            </div>
-                            <div class="requirement" id="symbolReq">
-                                <span class="requirement-icon">✗</span>
-                                <span>At least 1 symbol (!@#$%^&*)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" class="form-control" required>
-                        <div class="password-match" id="passwordMatch"></div>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="agreeTerms" required>
-                            <span>I agree to the <a href="#" target="_blank">Terms of Service</a></span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn--primary btn--full-width" id="signupSubmitBtn" disabled>Create Account</button>
-                    <div class="auth-divider">or</div>
-                    <div class="social-auth">
-                        <button type="button" class="social-btn google-btn">
-                            <span>Continue with Google</span>
-                        </button>
-                        <button type="button" class="social-btn apple-btn">
-                            <span>Continue with Apple</span>
-                        </button>
-                    </div>
-                    <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Sign in</a></p>
-                </form>
-
-                <!-- Step 2: Email Verification -->
-                <div class="verification-form hidden" id="verificationForm">
-                    <div class="verification-content">
-                        <div class="verification-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                        </div>
-                        <h3>Verify Your Email</h3>
-                        <p>We've sent a 6-digit verification code to <span id="verificationEmail"></span></p>
-                        
-                        <div class="otp-input-group">
-                            <input type="text" class="otp-input" maxlength="1" id="otp1">
-                            <input type="text" class="otp-input" maxlength="1" id="otp2">
-                            <input type="text" class="otp-input" maxlength="1" id="otp3">
-                            <input type="text" class="otp-input" maxlength="1" id="otp4">
-                            <input type="text" class="otp-input" maxlength="1" id="otp5">
-                            <input type="text" class="otp-input" maxlength="1" id="otp6">
-                        </div>
-                        
-                        <div class="otp-timer" id="otpTimer">
-                            Code expires in <span id="timerDisplay">05:00</span>
-                        </div>
-                        
-                        <button type="button" class="btn--primary btn--full-width" id="verifyOtpBtn">Verify Code</button>
-                        
-                        <div class="resend-section">
-                            <p>Didn't receive the code?</p>
-                            <button type="button" class="btn--outline" id="resendOtpBtn">Resend Code</button>
-                        </div>
-                        
-                        <button type="button" class="btn--outline" id="backToSignupBtn">Back to Sign Up</button>
-                    </div>
                 </div>
             </div>
         </div>
